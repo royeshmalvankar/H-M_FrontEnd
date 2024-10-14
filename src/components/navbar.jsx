@@ -1,6 +1,6 @@
 import React from 'react'
 import profile from '../assets/profile.png'
-import fav from '../assets/fav.png'
+import heart from '../assets/heart.png'
 import shoppingbag from '../assets/shoppingbag.png'
 import search from '../assets/search.png'
 import { AuthContext } from '../authcontext/authcontext'
@@ -421,7 +421,7 @@ const getcart = async () => {
                                                 </Popover>
                     </div>
                     <div className="nav-links-favorite">
-                    <img src={fav} alt="shoppingbag" /><Link to="/wishlist"><p>Favorites</p></Link>
+                    <img src={heart} alt="shoppingbag" /><Link to="/wishlist"><p>Favorites</p></Link>
                     </div>
                     <div className="nav-links-cart">
                     <img src={shoppingbag} alt="shoppingbag" /><Popover>
