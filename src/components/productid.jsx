@@ -134,6 +134,24 @@ const Productid = () => {
             setLoding(false)
         }
     }
+
+    const addtocart = async() => {
+        try {
+            setLoding(true)
+            console.log(authtoken);
+            const response = await axios.post(`https://h-m-backend.onrender.com/cart/add/${id}`,{}, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            console.log(response);
+            setLoding(false)
+        } catch (error) {
+            console.log(error);
+            setError(true)
+            setLoding(false)
+        }
+    }
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
     }
@@ -158,6 +176,7 @@ const Productid = () => {
                {role=="admin" && <button onClick={() => setUpdate(!update)} >Edit</button>}
                {role=="admin" && <button onClick={deleteproduct}>Delete</button>}
                {(role=="admin"||role=="user")&& <button onClick={addtowishlist}>Add to wishlist</button>}
+               {(role=="admin"||role=="user")&& <button onClick={addtocart}>Add to cart</button>}
             </div>
            {update && <div style={{textAlign:"center"}}>
                 <h1>Update Product</h1>

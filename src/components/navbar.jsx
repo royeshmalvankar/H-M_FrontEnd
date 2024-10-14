@@ -1,6 +1,6 @@
 import React from 'react'
 import profile from '../assets/profile.png'
-// import fav from '../assets/fav.png'
+import fav from '../assets/fav.png'
 import shoppingbag from '../assets/shoppingbag.png'
 import search from '../assets/search.png'
 import { AuthContext } from '../authcontext/authcontext'
@@ -406,12 +406,12 @@ const getcart = async () => {
                     <div className="nav-links-signin">
                         <img style={{width: "30px", height: "30px"}} src={profile} alt="signin" /><Popover>
                                                 <PopoverTrigger>
-                                                    {localStorage.getItem('token')?<Button variant={'ghost'} size='sm'><Text>{localStorage.getItem('name')}! Logout</Text></Button>:<Button variant={'ghost'} onClick={() => navigate('/signup')} size='sm'>Sign in</Button>}
+                                                    {localStorage.getItem('token')?<Button variant={'ghost'} size='sm'><Text>{localStorage.getItem('name')}! Logout</Text></Button>:<Button variant={'ghost'} onClick={() => navigate('/login')} size='sm'>Sign in</Button>}
                                                 </PopoverTrigger>
                                                 <Portal>
                                                     <PopoverContent w={170}>
                                                     <PopoverBody>
-                                                        {localStorage.getItem('token')?<Button colorScheme='blue'>Logout</Button>:<Button colorScheme='blue'>Sign in</Button>}
+                                                        {localStorage.getItem('token')?<Button colorScheme='blue' onClick={logout}>Logout</Button>:<Button colorScheme='blue' onClick={() => navigate('/login')}>Sign in</Button>}
                                                     </PopoverBody>
                                                     <PopoverFooter fontSize={14}>My Account</PopoverFooter>
                                                     <PopoverFooter fontSize={14}>H&M Membership</PopoverFooter>
@@ -421,10 +421,10 @@ const getcart = async () => {
                                                 </Popover>
                     </div>
                     <div className="nav-links-favorite">
-                    <Link to="/wishlist"><p>Favorites</p></Link>
+                    <img src={fav} alt="shoppingbag" /><Link to="/wishlist"><p>Favorites</p></Link>
                     </div>
                     <div className="nav-links-cart">
-                    <img src={shoppingbag} alt="Favourite" /><Popover>
+                    <img src={shoppingbag} alt="shoppingbag" /><Popover>
                                                 <PopoverTrigger>
                                                     <Button variant={'ghost'} size='sm'>Shopping Bag</Button>
                                                 </PopoverTrigger>
