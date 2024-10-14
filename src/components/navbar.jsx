@@ -421,7 +421,7 @@ const getcart = async () => {
                                                 </Popover>
                     </div>
                     <div className="nav-links-favorite">
-                    <img src={fav} alt="Favourite" /><Link to="/wishlist"><p>Favorites</p></Link>
+                    <Link to="/wishlist"><p>Favorites</p></Link>
                     </div>
                     <div className="nav-links-cart">
                     <img src={shoppingbag} alt="Favourite" /><Popover>
