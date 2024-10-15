@@ -25,7 +25,7 @@ npm run dev
 
 Access the application in your web browser:
 
-Open [http://localhost:57](http://localhost:5173/) to view the online store.
+Open [http://localhost:5173/](http://localhost:5173/) to view the online store.
 
 Features
 
