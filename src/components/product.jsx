@@ -15,7 +15,11 @@ const Products = () => {
     const [data,setData] = useState([]) 
 
     useEffect(() => {
-        getdata()
+        const timer=setTimeout(() => {
+            getdata()
+            return () => clearTimeout(timer)
+        },1000)
+        
     },[searchdata])
 
     if (isLoding) {
@@ -44,13 +48,12 @@ const Products = () => {
 
     return (
         <>
-        <div className='products'>
+        <div style={{marginTop:"50px"}} className='products'>
             {data.map((item) => {
                 return (
                     <Link key={item._id} to={`/products/${item._id}`} style={{ textDecoration: "none", color: "black" }}><div  className='product'>
                         <img  src={item.image} alt={item.name} />
                         <h1>Product Name: {item.name}</h1>
-                        <h1>Description: {item.description}</h1>
                         <h1>Price: {item.price}</h1>
                     </div></Link>
                 )

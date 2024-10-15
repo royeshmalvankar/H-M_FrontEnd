@@ -83,7 +83,6 @@ const Cart = () => {
                                 <img style={{ width: '200px' }} src={item.image} alt={item.name} />
                                 <p>{item.name}</p>
                                 <p>{item.price}</p>
-                                <p>{item.description}</p>
                                 <Button variant="solid" margin={'20px'} colorScheme="red" onClick={() => deleteCart(item._id)}>Remove from cart</Button>
                             </div></Link>
                         ))
