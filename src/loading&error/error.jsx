@@ -1,7 +1,8 @@
 const Error = () => {
-    return (
+    return(
         <div>
-            <h1>Error</h1>
+            <h1 style={{color:"red"}}>Something went wrong, {console.error('error')}</h1>
+            <p style={{color:"red"}}>Please try again later</p>
         </div>
     )
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Button } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const Wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
@@ -61,26 +63,27 @@ const Wishlist = () => {
     }
 
     return (
-        <div>
+        <>
+        <h2 className="wishlist-title">Your Wishlist</h2>
+        <div className="products">
         {wishlist.map((wish) => (
             <div key={wish._id}>
-                <h2>Your Wishlist</h2>
                 {wish.products.length === 0 ? (
                     <p>No products in this wishlist</p>
                 ) : (
                     wish.products.map((item) => (
-                        <div key={item._id}>
+                        <Link key={item._id} to={`/products/${item._id}`}><div key={item._id} className="product">
                             <img style={{ width: '200px' }} src={item.image} alt={item.name} />
                             <p>{item.name}</p>
                             <p>{item.price}</p>
-                            <p>{item.description}</p>
-                            <button onClick={() => deletewishlist(item._id)}>Remove from wishlist</button>
-                        </div>
+                            <Button margin={"20px"} colorScheme="red" onClick={() => deletewishlist(item._id)}>Remove from wishlist</Button>
+                        </div></Link>
                     ))
                 )}
             </div>
         ))}
     </div>
+    </>
 )
 
 }

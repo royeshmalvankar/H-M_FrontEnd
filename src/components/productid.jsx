@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import Loading from "../loading&error/loading"
 import Error from "../loading&error/error"
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@chakra-ui/react'
 
 const Productid = () => {
     let authtoken = localStorage.getItem("token")
@@ -33,6 +34,8 @@ const Productid = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
+            console.log("product",response.data.product);
+            
             setData(response.data.product)
             setLoding(false)
             setFormstate({
@@ -166,17 +169,17 @@ const Productid = () => {
     console.log(data);
     
     return (
-        <div style={{textAlign:"center"}}>
+        <div style={{textAlign:"center",padding:"50px"}}>
             <img src={data.image} style={{width:"400px",height:"500px",margin:"auto"}} alt="" />
-            <h1>Product Name: {data.name}</h1>
-            <h1>Product Price: {data.price}</h1>
-            <h1>Product Description: {data.description}</h1>
-            <h1>Product Quantity: {data.quantity}</h1>
-            <div style={{display:"flex",justifyContent:"center"}}>
-               {role=="admin" && <button onClick={() => setUpdate(!update)} >Edit</button>}
-               {role=="admin" && <button onClick={deleteproduct}>Delete</button>}
-               {(role=="admin"||role=="user")&& <button onClick={addtowishlist}>Add to wishlist</button>}
-               {(role=="admin"||role=="user")&& <button onClick={addtocart}>Add to cart</button>}
+            <h1> Name: <span style={{color:"red"}}>{data.name}</span></h1>
+            <h1>Price: <span style={{color:"red"}}>Rs.{data.price}</span></h1>
+            <h1> {data.description}</h1>
+            <h1>Product Avaliblity: <span style={data.quantity>=0?{color:"green"}:{color:"red"}} >{data.quantity>=0?"In Stock":"Out of Stock"}</span></h1>
+            <div style={{display:"flex",justifyContent:"center",gap:"10px",marginTop:"20px"}}>
+               {role=="admin" && <Button colorScheme='teal' variant='solid' onClick={() => setUpdate(!update)} >Edit</Button>}
+               {role=="admin" && <Button colorScheme='red' variant='solid' onClick={deleteproduct}>Delete</Button>}
+               {(role=="admin"||role=="buyer")&& <Button colorScheme='blue' variant='solid' onClick={addtowishlist}>Add to wishlist</Button>}
+               {(role=="admin"||role=="buyer")&& <Button colorScheme='green' variant='solid' onClick={addtocart}>Add to cart</Button>}
             </div>
            {update && <div style={{textAlign:"center"}}>
                 <h1>Update Product</h1>

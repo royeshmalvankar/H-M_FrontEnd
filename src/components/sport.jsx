@@ -40,6 +40,8 @@ const Sport = () => {
     }
 
     return (
+        <>
+        <h1 style={{textAlign:"center",fontSize:"30px",fontWeight:"bold"}}>Sport</h1>
         <div className="cards">
             {data==undefined ? null : data.map((item) => (
                  <Link key={item._id} to={`/products/${item._id}`}><div className="card" key={item._id}>
@@ -49,6 +51,7 @@ const Sport = () => {
                 </div></Link>
             ))}
         </div>
+        </>
     );
 }
 

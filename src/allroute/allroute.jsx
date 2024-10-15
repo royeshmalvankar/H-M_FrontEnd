@@ -19,6 +19,8 @@ import Sale from '../components/sale'
 import Sport from '../components/sport'
 import Nodata from '../components/nodata'
 import Footer from '../components/Footer'
+import Myaccount from '../components/myaccount'
+import Products from '../components/product'
 
 
 const Allroute = () => {
@@ -31,9 +33,11 @@ const Allroute = () => {
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/cart' element={<PrivateRoute><Cart/></PrivateRoute>}/>
-            <Route path='/createproduct' element={<CreateProduct/>}/>
+            <Route path='/createproduct' element={<PrivateRoute><CreateProduct/></PrivateRoute>}/>
+            <Route path='/products' element={<Products/>}/>
             <Route path='/products/:id' element={<Productid/>}/>
             <Route path='/wishlist' element={<PrivateRoute><Wishlist/></PrivateRoute>}/>
+            <Route path='/myaccount' element={<PrivateRoute><Myaccount/></PrivateRoute>}/>
             <Route path='/ladies' element={<Ladies/>}/>
             <Route path='/men' element={<Men/>}/>
             <Route path='/h&mhome' element={<HMhome/>}/>

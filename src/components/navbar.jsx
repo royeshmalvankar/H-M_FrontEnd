@@ -39,29 +39,23 @@ import {
 const Navbar = () => {
     const navigate = useNavigate()
 
-    const [user,setUser]=useState(localStorage.getItem("name"))
-    const {isloding,setLoding,isError,setError}=useContext(AuthContext)
+    // const [user,setUser]=useState(localStorage.getItem("name"))
+    const {isloding,setLoding,isError,setError,searchdata,setsearch}=useContext(AuthContext)
 
     const [cart,setcart]=useState([])
+    let token =localStorage.getItem("token")
+    const jwtPayload = token && JSON.parse(window.atob(token?.split('.')[1]));
+    const expires = new Date(jwtPayload?.exp * 1000);
+    const date = new Date();
+    console.log("exp",expires,"--","now",date);
     
     const Navigate=useNavigate()
-
     useEffect(()=>{
-        getcart()
         if(expires  <= Date.now()) {
             logout()
           }
-
     },[])
 
-    if(isloding){
-        return <Loading/>
-    }
-
-    if(isError){
-        return <Error/>
-    }
-    
     const logout=()=>{
         axios.get ("https://h-m-backend.onrender.com/user/logout",{
             headers:{
@@ -73,11 +67,17 @@ const Navbar = () => {
         localStorage.removeItem("userid")
         Navigate("/login")
     }
-    let token =localStorage.getItem("token")
-    const jwtPayload = token && JSON.parse(window.atob(token?.split('.')[1]));
-    const expires = new Date(jwtPayload?.exp * 1000);
-    const date = new Date();
-    console.log("exp",expires,"--","now",date);
+
+    if(isloding){
+        return <Loading/>
+    }
+
+    if(isError){
+        return <Error/>
+    }
+    
+  
+   
 
 const items = [
     {
@@ -378,7 +378,7 @@ const getcart = async () => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        console.log(response);
+        // console.log(response);
         setcart(response.data.carts);
         setLoding(false);
     } catch (error) {
@@ -386,6 +386,7 @@ const getcart = async () => {
         setError('Failed to fetch cart');
         setLoding(false);
     }
+
 };
     return (
         <nav className="navbar">
@@ -397,11 +398,11 @@ const getcart = async () => {
                 <p>...</p>
                 </div>
                 <div className="nav-logo">
-                    <img style={{width: "auto", height: "40px"}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/1200px-H%26M-Logo.svg.png" alt="" />
+                    <img style={{width: "auto", height: "40px",marginLeft:"100px"}} onClick={() => Navigate('/')} src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/1200px-H%26M-Logo.svg.png" alt="" />
                 </div>
                 <div className="nav-links-2">
                     <div className="nav-links-create">
-                        {(localStorage.getItem('role')=='seller'||localStorage.getItem('role')=='admin')?<Link to="/createproduct">Create Product</Link>:null}
+                        {(localStorage.getItem('role')=='seller'||localStorage.getItem('role')=='admin')?<Link to="/createproduct"><Text fontWeight={"bold"}>Create Product</Text></Link>:null}
                     </div>
                     <div className="nav-links-signin">
                         <img style={{width: "30px", height: "30px"}} src={profile} alt="signin" /><Popover>
@@ -413,7 +414,7 @@ const getcart = async () => {
                                                     <PopoverBody>
                                                         {localStorage.getItem('token')?<Button colorScheme='blue' onClick={logout}>Logout</Button>:<Button colorScheme='blue' onClick={() => navigate('/login')}>Sign in</Button>}
                                                     </PopoverBody>
-                                                    <PopoverFooter fontSize={14}>My Account</PopoverFooter>
+                                                    <PopoverFooter fontSize={14} onClick={() => navigate('/myaccount')}>My Account</PopoverFooter>
                                                     <PopoverFooter fontSize={14}>H&M Membership</PopoverFooter>
                                                     <Text padding={"10px"} fontSize={10}>Not a member yet? Join here!</Text>
                                                     </PopoverContent>
@@ -426,46 +427,42 @@ const getcart = async () => {
                     <div className="nav-links-cart">
                     <img src={shoppingbag} alt="shoppingbag" /><Popover>
                                                 <PopoverTrigger>
-                                                    <Button variant={'ghost'} size='sm'>Shopping Bag</Button>
+                                                    <Button variant={'ghost'} size='sm' onClick={()=>localStorage.getItem('token')?getcart():null} >Shopping Bag</Button>
                                                 </PopoverTrigger>
                                                 <Portal>
                                                     <PopoverContent w={570} margin={'auto'}>
-                                                        <PopoverHeader>Your Shopping Bag</PopoverHeader>
+                                                        <PopoverHeader textAlign={'center'}>Your Shopping Bag</PopoverHeader>
                                                     <PopoverBody>
-                                                    {cart===null?null:cart?.map((wish)=>{
-                                                        {console.log(wish)};
-                                                        
-                                                    <TableContainer key={wish._id}>
-                                                            <Table variant='striped' colorScheme='teal' >
-                                                                {wish.product.length=== 0 ?(<TableCaption>Cart is empty</TableCaption>):(
-                                                                wish.product.map((pro)=>(
-                                                                    <> 
-                                                                <TableCaption>Shopping Bag</TableCaption>
-                                                                <Thead>
-                                                                <Tr>
-                                                                    <Th>Name</Th>
-                                                                    <Th>Price</Th>
+                                                    
+                                                    {cart.length > 0 ? cart.map((product) => {
+                                                        return(
+                                                        <TableContainer key={product._id}>
+                                                        <Table variant='simple'>
+                                                            <TableCaption>{localStorage.getItem('name')} Shopping Bag</TableCaption>
+                                                            <Thead>
+                                                            <Tr>
+                                                                <Th>Name</Th>
+                                                                <Th>Price</Th>
+                                                            </Tr>
+                                                            </Thead>
+                                                            <Tbody>
+                                                            {product.products.map((pro) => (
+                                                                <Tr key={pro._id}>
+                                                                <Td>{pro.name}</Td>
+                                                                <Td isNumeric>{pro.price}</Td>
                                                                 </Tr>
-                                                                </Thead>
-                                                                <Tbody>
-                                                                <Tr>
-                                                                    <Td>{pro.name}</Td>
-                                                                    <Td isNumeric>{pro.price}</Td>
-                                                                </Tr>
+                                                            ))}
+                                                            </Tbody>
+                                                            <Tfoot>
+                                                            <Tr>
+                                                                <Th>Total</Th>
+                                                                <Th isNumeric>{product.totalCartValue}</Th>
+                                                            </Tr>
+                                                            </Tfoot>
+                                                        </Table>
+                                                        </TableContainer>
+                                                    )}): <p>Your cart is empty</p>}
 
-                                                                </Tbody>
-                                                                <Tfoot>
-                                                                <Tr>
-                                                                    <Th>Total</Th>
-                                                                    <Th isNumeric>{wish.totalwishListValue}</Th>
-                                                                </Tr>
-                                                                </Tfoot>
-                                                                </> 
-                                                                ))
-                                                    )}
-                                                            </Table>
-                                                            </TableContainer>
-                                                    })}
                                                     
                                                     </PopoverBody>
                                                     <PopoverFooter>
@@ -489,7 +486,7 @@ const getcart = async () => {
 
                 <div className="nav-links-search">
                     <div className="nav-links-searchbar">
-                        <img src={search} alt="Search" style={{width: "30px", height: "30px"}} /><Input variant='flushed' placeholder='Search' size='sm' />
+                        <img src={search} alt="Search" style={{width: "30px", height: "30px"}} /><Input variant='flushed' placeholder='Search' size='sm' value={searchdata} onChange={(e) => {navigate(`/products`),setsearch(e.target.value)}} />
                     </div>
                 </div>
 

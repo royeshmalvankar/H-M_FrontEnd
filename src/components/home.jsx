@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom"
+
 const Home = () => {
+    const navigate = useNavigate()
 
     return (
             <>
             <div className="container" >
                 <img src="https://static.hm.com.cn/media/tool/template/images/2024/09/20/_/l/_logo_teaser_1.jpg" alt="Snow"/>
-                <button className="btn">Ladies</button>
-                <button className="btnM">Men</button>
+                <button className="btn" onClick={() => navigate('/ladies')}>Ladies</button>
+                <button className="btnM" onClick={() => navigate('/men')}>Men</button>
             </div>
             <br />
             <div className="container1">

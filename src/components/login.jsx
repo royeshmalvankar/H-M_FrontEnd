@@ -5,6 +5,7 @@ import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 import { AuthContext } from "../authcontext/authcontext";
+import { a } from "framer-motion/client";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -33,18 +34,14 @@ const Login = () => {
             let response = await axios.post(`https://h-m-backend.onrender.com/user/login`,{email:logemail,password:logpassword})
             let token=response.data.acessToken
             let userid=response.data.userid
-            if (token){
-            localStorage.setItem("token",token)
-            alert("login success");
-            reset()
-            navigate("/")
-            authrole(userid)
-            }
-            else{
-                alert("login failed \n Check Email and Password or if you are new Register first");
-            }      
+                localStorage.setItem("token",token)
+                alert("login success");
+                reset()
+                navigate("/")
+                authrole(userid)  
             
         } catch (error) {
+            alert("login failed \n Check Email and Password or if you are new Register first");
             console.log(error);
         }
         
