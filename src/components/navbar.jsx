@@ -442,7 +442,7 @@ const getcart = async () => {
                                                             <Thead>
                                                             <Tr>
                                                                 <Th>Name</Th>
-                                                                <Th>Price</Th>
+                                                                <Th isNumeric>Price</Th>
                                                             </Tr>
                                                             </Thead>
                                                             <Tbody>

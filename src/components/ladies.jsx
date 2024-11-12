@@ -22,7 +22,6 @@ const Ladies = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log(response)
             setData(response.data.products)
             setLoding(false)
         } catch (error) {

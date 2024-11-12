@@ -5,7 +5,6 @@ import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 import { AuthContext } from "../authcontext/authcontext";
-import { a } from "framer-motion/client";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -17,8 +16,6 @@ const Login = () => {
     }
 
     const authrole=async(userid)=>{
-        console.log(userid);
-        
         const ath = await axios.get(`https://h-m-backend.onrender.com/user/${userid}`,{
             headers:{
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -39,6 +36,8 @@ const Login = () => {
                 reset()
                 navigate("/")
                 authrole(userid)  
+            console.log(response.data.error);
+            
             
         } catch (error) {
             alert("login failed \n Check Email and Password or if you are new Register first");

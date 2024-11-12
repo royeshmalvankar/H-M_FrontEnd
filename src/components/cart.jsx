@@ -55,9 +55,7 @@ const Cart = () => {
     }
 
     const cartlength = cart.length
-    if(cartlength === 0){
-        console.log(cartlength);
-        
+    if(cartlength === 0){    
         try {
             return <h1>Your cart is empty</h1>
         } catch (error) {
@@ -79,12 +77,12 @@ const Cart = () => {
                         <p>No products in this cart</p>
                     ) : (
                         product.products.map((item) => (
-                            <Link key={item._id} to={`/products/${item._id}`}><div key={item._id} className='product'>
-                                <img style={{ width: '200px' }} src={item.image} alt={item.name} />
+                           <div key={item._id} className='product'>
+                                 <Link key={item._id} to={`/products/${item._id}`}><img style={{ width: '200px' }} src={item.image} alt={item.name} />
                                 <p>{item.name}</p>
-                                <p>{item.price}</p>
+                                <p>{item.price}</p></Link>
                                 <Button variant="solid" margin={'20px'} colorScheme="red" onClick={() => deleteCart(item._id)}>Remove from cart</Button>
-                            </div></Link>
+                            </div>
                         ))
                     )}
                 </div>

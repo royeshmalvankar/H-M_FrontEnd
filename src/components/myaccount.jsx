@@ -46,7 +46,6 @@ const Myaccount = () => {
             return;
           }
          setData(response.data)
-         console.log(response)
          setLoding(false)
        } catch (error) {
            setError(true)

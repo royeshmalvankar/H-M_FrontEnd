@@ -65,19 +65,19 @@ const Wishlist = () => {
     return (
         <>
         <h2 className="wishlist-title">Your Wishlist</h2>
-        <div className="products">
+        <div >
         {wishlist.map((wish) => (
-            <div key={wish._id}>
+            <div key={wish._id} className="products">
                 {wish.products.length === 0 ? (
                     <p>No products in this wishlist</p>
                 ) : (
                     wish.products.map((item) => (
-                        <Link key={item._id} to={`/products/${item._id}`}><div key={item._id} className="product">
-                            <img style={{ width: '200px' }} src={item.image} alt={item.name} />
+                       <div key={item._id} className="product">
+                             <Link key={item._id} to={`/products/${item._id}`}><img style={{ width: '200px' }} src={item.image} alt={item.name} />
                             <p>{item.name}</p>
-                            <p>{item.price}</p>
+                            <p>{item.price}</p></Link>
                             <Button margin={"20px"} colorScheme="red" onClick={() => deletewishlist(item._id)}>Remove from wishlist</Button>
-                        </div></Link>
+                        </div>
                     ))
                 )}
             </div>

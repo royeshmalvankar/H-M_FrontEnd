@@ -121,13 +121,11 @@ const Productid = () => {
     const addtowishlist = async() => {
         try {
             setLoding(true)
-            console.log(authtoken);
-            const response = await axios.post(`https://h-m-backend.onrender.com/wishlist/add/${id}`,{}, {
+            await axios.post(`https://h-m-backend.onrender.com/wishlist/add/${id}`,{}, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log(response);
             
             
             setLoding(false)
@@ -147,7 +145,6 @@ const Productid = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log(response);
             setLoding(false)
         } catch (error) {
             console.log(error);

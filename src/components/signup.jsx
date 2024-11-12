@@ -20,7 +20,6 @@ const Signup = () => {
         e.preventDefault();
         try {
             let response =  await axios.post(`https://h-m-backend.onrender.com/user/register`,{name,email,password,role})
-            console.log("rp",response)
             alert("Registered Successfully")
             reset()
             navigate("/login")
