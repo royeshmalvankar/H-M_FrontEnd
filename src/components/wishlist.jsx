@@ -16,7 +16,7 @@ const Wishlist = () => {
     const getwishlist = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3001/wishlist', {
+            const response = await axios.get('https://h-m-backend.onrender.com/wishlist', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -34,7 +34,7 @@ const Wishlist = () => {
     // Delete wishlist item
     const deletewishlist = async (id) => {
         try {
-            await axios.delete(`http://localhost:3001/wishlist/delete/${id}`, {
+            await axios.delete(`https://h-m-backend.onrender.com/wishlist/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
